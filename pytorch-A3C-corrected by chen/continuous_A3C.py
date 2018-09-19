@@ -149,7 +149,7 @@ class Worker(mp.Process):#define a inherit class
 if __name__ == "__main__":
     gnet = Net(N_S, N_A)        # global network
     gnet.share_memory()         # share the global parameters in multiprocessing
-    opt = SharedAdam(gnet.parameters(), lr=0.0002)  # global optimizer
+    opt = SharedAdam(gnet.parameters(), lr=0.0002)  # global optimizer,事实上优化器可以不用定义全局的，每个线程一个就可以，避免后面出错
 
     global_ep, global_ep_r, res_queue = mp.Value('i', 0), mp.Value('d', 0.), mp.Queue()#number of ep.return
 
