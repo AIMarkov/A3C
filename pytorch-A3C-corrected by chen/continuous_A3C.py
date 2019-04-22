@@ -73,12 +73,12 @@ class Net(nn.Module):
 
         c_loss = td.pow(2)
 
-        m = self.distribution(mu, sigma)
+        m = self.distribution(mu, sigma)#创建一个分布
 
         a=Variable(a)
-        log_prob = m.log_prob(a)
+        log_prob = m.log_prob(a)#根据这个分布求对变量ａ求log概率也就是等价与求log(pi(a))见公式
 
-        entropy = 0.5 + 0.5 * math.log(2 * math.pi) + torch.log(sigma)#torch.log(m.scale)  # exploration
+        entropy = 0.5 + 0.5 * math.log(2 * math.pi) + torch.log(sigma)#torch.log(m.scale)  # exploration，这个交叉商实际上是和高斯策略的方差有关系
         exp_v = log_prob * td.detach() + 0.005 * entropy
         #print('every thing is good')
         a_loss = -exp_v
